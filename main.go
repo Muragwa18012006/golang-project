@@ -41,5 +41,5 @@ func main() {
 	router.GET("/test", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "route testing ...... successfully"})
 	})
-	router.Run(":" + port)
+	router.Run("0.0.0.0:" + port)
 }
