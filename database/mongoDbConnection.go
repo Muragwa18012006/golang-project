@@ -3,7 +3,9 @@ package database
 import (
 	"context"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -15,13 +17,13 @@ var (
 )
 
 func DbConnect() error {
-	/* err := godotenv.Load(".env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("error occured while loading env")
-	} */
-	/* URL := os.Getenv("MONGO_URL") */
+	}
+	URL := os.Getenv("MONGO_URL")
 	serverApi := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI("mongodb+srv://muragwachrissruta:muragwahirwachristian@cluster0.t9utyli.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").SetServerAPIOptions(serverApi)
+	opts := options.Client().ApplyURI(URL).SetServerAPIOptions(serverApi)
 	client, err := mongo.Connect(context.Background(), opts)
 	/* connect = client */
 	Collection = client.Database("blog-database").Collection("todos") //*****add collection*****
