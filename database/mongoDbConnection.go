@@ -22,11 +22,13 @@ func DbConnect() error {
 		log.Fatal("error occured while loading env")
 	}
 	URL := os.Getenv("MONGO_URL")
+	DATABASE := os.Getenv("DATABASE")
+	COLLECTION := os.Getenv("COLLECTION")
 	serverApi := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(URL).SetServerAPIOptions(serverApi)
 	client, err := mongo.Connect(context.Background(), opts)
 	/* connect = client */
-	Collection = client.Database("blog-database").Collection("todos") //*****add collection*****
+	Collection = client.Database(DATABASE).Collection(COLLECTION) //*****add collection*****
 	if err != nil {
 		log.Fatal(err)
 	}
