@@ -12,8 +12,9 @@ import (
 )
 
 var (
-	connect    *mongo.Client
-	Collection *mongo.Collection
+	connect        *mongo.Client
+	Collection     *mongo.Collection
+	UserCollection *mongo.Collection
 )
 
 func DbConnect() error {
@@ -24,11 +25,13 @@ func DbConnect() error {
 	URL := os.Getenv("MONGO_URL")
 	DATABASE := os.Getenv("DATABASE")
 	COLLECTION := os.Getenv("COLLECTION")
+	USERCOLLECTION := os.Getenv("USERCOLLECTION")
 	serverApi := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(URL).SetServerAPIOptions(serverApi)
 	client, err := mongo.Connect(context.Background(), opts)
 	/* connect = client */
-	Collection = client.Database(DATABASE).Collection(COLLECTION) //*****add collection*****
+	Collection = client.Database(DATABASE).Collection(COLLECTION)
+	UserCollection = client.Database(DATABASE).Collection(USERCOLLECTION) //*****add collection*****
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -2,11 +2,15 @@ package routes
 
 import (
 	"booking-app/controllers"
+	"booking-app/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func AddTodos(rt *gin.Engine) {
-	rt.POST("users/addTodos", controllers.AddTodo())
-	rt.PUT("users/update/:id", controllers.UpdateTodo())
+	protected := rt.Group("/users")
+	protected.Use(middleware.Authenticate())
+	protected.POST("/addTodos", controllers.AddTodo())
+	protected.PUT("/update/:id", controllers.UpdateTodo())
+
 }
